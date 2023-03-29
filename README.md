@@ -1,1 +1,1 @@
-# BeautySalon_Django
+# HT_18 BeautySalon_Djangj endpoints
