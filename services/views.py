@@ -6,11 +6,12 @@ from services.models import Service, Master, Schedule
 
 def service_handler(request):
     date_start = datetime.date.today()
-    date_end = datetime.date.today()+datetime.timedelta(days=7)
-    day_of_week = date_start.weekday()
-    monday = date_start - datetime.timedelta(days=day_of_week)
-    sunday = date_start + datetime.timedelta(days=6 - day_of_week)
-    week = f'{monday} -- {sunday}'
+    date_end = datetime.date.today() + datetime.timedelta(days=7)
+    # day_of_week = date_start.weekday()
+    # monday = date_start - datetime.timedelta(days=day_of_week)
+    # sunday = date_start + datetime.timedelta(days=6 - day_of_week)
+    # week = f'{monday} -- {sunday}'
+    week = f'{date_start} -- {date_end}'
 
     calendars = Schedule.objects.filter(date__gte=date_start,
                                         date__lte=date_end
@@ -27,10 +28,11 @@ def service_name_handler(request, service_name):
 def specialist_handler(request):
     date_start = datetime.date.today()
     date_end = datetime.date.today() + datetime.timedelta(days=7)
-    day_of_week = date_start.weekday()
-    monday = date_start - datetime.timedelta(days=day_of_week)
-    sunday = date_start + datetime.timedelta(days=6 - day_of_week)
-    week = f'{monday} -- {sunday}'
+    #day_of_week = date_start.weekday()
+    #monday = date_start - datetime.timedelta(days=day_of_week)
+    #sunday = date_start + datetime.timedelta(days=6 - day_of_week)
+    #week = f'{monday} -- {sunday}'
+    week = f'{date_start} -- {date_end}'
 
     calendars = Schedule.objects.filter(date__gte=date_start,
                                         date__lte=date_end
