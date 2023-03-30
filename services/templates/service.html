@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Services</title>
+</head>
+<body>
+    <h3>
+<div class="small">
+    Current week : {{week}}
+</div>
+    </h3>
+    <h3> Services: </h3>
+{% for service in services %}
+    <p>
+    -- {{ service.name }}
+    </p>
+{% endfor %}
+</body>
+</html>
