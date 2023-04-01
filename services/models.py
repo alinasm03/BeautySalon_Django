@@ -44,4 +44,3 @@ class Schedule(models.Model):
 
     def __str__(self):
         return f'{self.master} {self.date} {self.time_start} {self.time_end}'
-
