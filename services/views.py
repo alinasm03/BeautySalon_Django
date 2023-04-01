@@ -47,4 +47,3 @@ def specialist_id_handler(request, specialist_id):
 
 def booking_handler(request):
     return HttpResponse("Booking")
-
