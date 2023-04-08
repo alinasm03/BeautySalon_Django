@@ -7,12 +7,12 @@ class Service(models.Model):
     price = models.FloatField()
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.duration} {self.price}'
 
 
 class Master(models.Model):
     RANGE_CHOICES = (
-        (0, 'Майтер'),
+        (0, 'Майcтер'),
         (1, 'Топ-майстер'),
     )
     name = models.CharField(max_length=100)
@@ -22,7 +22,7 @@ class Master(models.Model):
     services = models.ManyToManyField(Service)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.range} {self.phone} {self.status} {self.services}'
 
 
 class Booking(models.Model):

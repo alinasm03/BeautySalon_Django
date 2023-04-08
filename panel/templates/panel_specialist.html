@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin.Specialist</title>
+</head>
+<body>
+<style>
+    body {background-image: url("https://alae.com.ua/wp-content/uploads/2019/09/face-art.jpg");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+  }
+  .button
+{
+    background-color: black;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid white;
+    font-size: 16px;
+    color:gold;
+    transition-duration: 0.4s;
+}
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style>
+<h1 style="color:Gold;"> BEAUTY SALON </h1>
+<br>
+<h2 style="color:White;"> Admin. Schedule: </h2>
+<ul style="color:White;">
+    <h2><i>{% if master_actual.range == 0%}
+        Master
+        {% endif %}
+        {% if master_actual.range == 1%}
+        TOP-Master
+        {% endif %}
+        {{master_actual.name}}</i></h2>
+{% for schedule in work_schedule %}
+    <p><li>
+    {{schedule.date}} -- start: {{schedule.time_start}} - end: {{schedule.time_end}}
+    </li>
+    </p>
+{% endfor %} </ul>
+    <h2 style="color:White;"> Admin. Add new records: </h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="date" name="date" placeholder="Choose date" value=""><br>
+        <input type="time" name="time_start" placeholder="Start procedure" value=""><br>
+        <input type="time" name="time_end" placeholder="End procedure" value=""><br>
+        <input type="submit" value="Save" class="button"/>
+    </form>
+</body>
+</html>
+

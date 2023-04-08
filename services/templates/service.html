@@ -5,16 +5,39 @@
     <title>Services</title>
 </head>
 <body>
-    <h3>
-<div class="small">
-    Period : {{week}}
+<style>
+    body {background-image: url("https://phonoteka.org/uploads/posts/2021-04/1618888587_13-phonoteka_org-p-fon-dlya-salona-krasoti-banner-13.jpg");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+  }
+  .button
+{
+    background-color: black;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid white;
+    font-size: 16px;
+    color:gold;
+    transition-duration: 0.4s;
+}
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style>
+<h1 style="color:Gold;"> BEAUTY SALON </h1>
+<br>
+<div class="small"><h3 style="color:White;">
+    Available services ({{week}}): </h3>
 </div>
-    </h3>
-    <h3> Services: </h3>
 {% for service in services %}
+    <ul style="color:White;">
     <p>
-    -- {{ service.name }}
-    </p>
+    <li>
+    {{ service.name }}
+    </li></p></ul>
 {% endfor %}
 </body>
 </html>

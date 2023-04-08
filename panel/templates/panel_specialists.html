@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin.Specialists</title>
+</head>
+<body>
+<style>
+    body {background-image: url("https://alae.com.ua/wp-content/uploads/2019/09/face-art.jpg");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+  }
+  .button
+{
+    background-color: black;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid white;
+    font-size: 16px;
+    color:gold;
+    transition-duration: 0.4s;
+}
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style>
+<h1 style="color:Gold;"> BEAUTY SALON </h1>
+<br>
+<h2 style="color:White;"> Admin. Available specialists: </h2>
+{% for specialist in specialists %}
+    <ul style="color:White;">
+    <p>
+        <li>{{specialist.name}}
+        {% if specialist.range == 0%}
+        Master
+        {% endif %}
+        {% if specialist.range == 1%}
+        TOP-Master
+        {% endif %}
+        {% if specialist.status == True %}
+        -- Work
+        {% endif %}
+        {% if specialist.status == False %}
+        -- Not work
+        {% endif %}: +{{specialist.phone}}
+        -- services:
+        {% for service in specialist.services.all %}
+            {{service.name}},
+        {% endfor %}
+    </p>
+    </ul>
+{% endfor %}
+<h2 style="color:White;"> Admin. Add new specialists: </h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="name" value=""><br>
+        <input type="text" name="phone" placeholder="phone" value=""><br>
+        <select name="range">
+            <option value="0">0</option>
+            <option value="1">1</option>
+        </select><br>
+        <select name="status">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select><br>
+        {% for service in services %}
+        <i style="color:White;"><input type="checkbox" name="service_{{service.id}}" value="{{service.id}}">{{service.name}}
+        {% endfor %}<br>
+        <input type="submit" value="Save" class="button"/>
+    </form>
+</body>
+</html>
+

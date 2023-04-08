@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin.Schedule</title>
+</head>
+<body>
+<style>
+    body {background-image: url("https://alae.com.ua/wp-content/uploads/2019/09/face-art.jpg");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+  }
+  .button
+{
+    background-color: black;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid white;
+    font-size: 16px;
+    color:gold;
+    transition-duration: 0.4s;
+}
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style>
+<h1 style="color:Gold;"> BEAUTY SALON </h1>
+<br>
+<h2 style="color:White;"> Admin. Schedule for {{available_masters.name}}
+    {% if available_masters.range == 0%}
+    (Master)
+    {% endif %}
+    {% if available_masters.range == 1%}
+    (TOP-Master)
+    {% endif %}
+    </h2>
+{% for schedule in schedule_master %}
+    <ul style="color:White;">
+        <li>
+            {{schedule.date}} -- start: {{schedule.time_start}} - end: {{schedule.time_end}}
+        </li>
+    </ul>
+{% endfor %}
+    <h2 style="color:White;"> Admin. Add new records: </h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="date" name="date" placeholder="Date" value="" required><br>
+        <input type="time" name="time_start" placeholder="time_start" value="" required><br>
+        <input type="time" name="time_end" placeholder="time_end" value="" required><br>
+        <input type="submit" value="Save" class="button"/>
+    </form>
+</body>
+</html>
+

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin.Services</title>
+</head>
+<body>
+<style>
+    body {background-image: url("https://alae.com.ua/wp-content/uploads/2019/09/face-art.jpg");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+  }
+  .button
+{
+    background-color: black;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid white;
+    font-size: 16px;
+    color:gold;
+    transition-duration: 0.4s;
+}
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style>
+<h1 style="color:Gold;"> BEAUTY SALON </h1>
+<br>
+    <h2 style="color:White;"> Admin. Available services: </h2>
+{% for service in services %}
+    <ul style="color:White;">
+    <p>
+    <li> {{ service.name }} - duration: {{service.duration}} min - price: {{service.price}} UAH </li>
+    </p>
+    </ul>
+{% endfor %}
+    <h2 style="color:White;"> Admin. Add new services: </h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Name" value="" required><br>
+        <input type="number" name="duration" placeholder="Duration" value="" required><br>
+        <input type="number" name="price" placeholder="Price" value="" required><br>
+        <input type="submit" value="Save" class="button"/>
+    </form>
+</body>
+</html>
+
