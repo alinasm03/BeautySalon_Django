@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>One Service</title>
+</head>
+<body>
+<style>
+    body {background-image: url("https://phonoteka.org/uploads/posts/2021-04/1618888587_13-phonoteka_org-p-fon-dlya-salona-krasoti-banner-13.jpg");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+  }
+  .button
+{
+    background-color: black;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid white;
+    font-size: 16px;
+    color:gold;
+    transition-duration: 0.4s;
+}
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style>
+<h1 style="color:Gold;"> BEAUTY SALON </h1>
+<br>
+<div class="small"><h3 style="color:White;">
+    Book a procedure at a convenient time ({{week}}) with </h3> <h2 style="color:Gold;"><u>{{master_name.name}}</u></h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        {% for one_dict in sorted_list_dict_free_windows_all_services %}
+        {% for service_name in one_dict %}
+        <h2 style="color:Gold;">{{service_name.name}}</h2>
+        <i style="color:White;"> Price: {{service_name.price}} UAH </i><br>
+        <i style="color:White;"> Duration: {{service_name.duration}} min </i><br>
+        {% for date_time in one_dict.values %}
+        {% for date in date_time %}
+        <br> <i style="color:White;">
+        <input type="radio" id="service_name" name="service_name" value="{{ service_name.name }}">
+  <label for="service_name"> {{ service_name.name }} </label>
+        <input type="radio" id="date" name="date" value="{{ date|date:'Y-m-d H:i' }}">
+  <label for="date">{{ date|date:'Y-m-d H:i' }} </label><br>
+        <input type="submit" class="button" value="Save"><br> </i>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
+
