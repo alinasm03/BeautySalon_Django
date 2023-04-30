@@ -42,9 +42,9 @@
         {% for date_time in one_dict.values %}
         {% for date in date_time %}
         <br> <i style="color:White;">
-        <input type="radio" id="master_name" name="master_name" value="{{ master_name }}">
+        <input type="radio" id="master_name" name="master_name" value="{{ master_name }}" required>
   <label for="master_name"> {{ master_name }} </label>
-        <input type="radio" id="date" name="date" value="{{ date|date:'Y-m-d H:i' }}">
+        <input type="radio" id="date" name="date" value="{{ date|date:'Y-m-d H:i' }}" required>
   <label for="date">{{ date|date:'Y-m-d H:i' }} </label><br>
         <input type="submit" class="button" value="Save"><br> </i>
         {% endfor %}
