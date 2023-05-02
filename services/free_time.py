@@ -51,3 +51,4 @@ def test_calc_free_windows(bookings, service_duration, workday_time_start, workd
         if no_intersection:
             free_time.append(time_start)
     return sorted(free_time)
+
