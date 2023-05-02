@@ -129,4 +129,3 @@ class Test(TestCase):
 
         expected_result = []
         self.assertListEqual(result, expected_result)
-
