@@ -5,10 +5,14 @@ from services.models import Service, Schedule, Master, Booking
 
 
 def root_handler(request):
+    if not request.user.has_perm('services.add_master'):
+        return HttpResponse('Немає доступу до перегляду сторінки')
     return HttpResponse("Hello panel")
 
 
 def bookings_handler(request):
+    if not request.user.has_perm('services.add_master'):
+        return HttpResponse('Немає доступу до перегляду сторінки')
     date_start = datetime.date.today()
     date_end = datetime.date.today() + datetime.timedelta(days=7)
     calendars = Schedule.objects.filter(date__gte=date_start,
@@ -36,6 +40,8 @@ def bookings_handler(request):
 
 
 def services_handler(request):
+    if not request.user.has_perm('services.add_service'):
+        return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
         service = Service(
             name=request.POST['name'],
@@ -48,6 +54,8 @@ def services_handler(request):
 
 
 def specialist_handler(request):
+    if not request.user.has_perm('services.add_master'):
+        return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
         specialists = Master(
             name=request.POST['name'],
@@ -68,6 +76,8 @@ def specialist_handler(request):
 
 
 def specialist_id_handler(request, specialist_id):
+    if not request.user.has_perm('services.add_master'):
+        return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
          work_schedule = Schedule(
             master=Master.objects.get(id=specialist_id),
@@ -84,6 +94,8 @@ def specialist_id_handler(request, specialist_id):
 
 
 def specialist_schedule(request, specialist_id):
+    if not request.user.has_perm('services.add_schedule'):
+        return HttpResponse('Немає доступу до перегляду сторінки')
     date_start = datetime.date.today()
     date_end = datetime.date.today() + datetime.timedelta(days=7)
     available_masters = Master.objects.get(id=specialist_id)

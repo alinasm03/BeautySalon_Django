@@ -4,3 +4,4 @@
 # HT_17 BeautySalon_Django Free windows for booking
 # HT_18 BeautySalon_Django test Free windows for booking
 # HT_19 BeautySalon_Django test admin_panel
+# HT_20 BeautySalon_Django log in/log out/permissions

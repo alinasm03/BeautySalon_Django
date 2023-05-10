@@ -1,5 +1,6 @@
 import datetime
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from services.models import Service, Master, Schedule, Booking
 from services.free_time import calc_free_windows
@@ -23,12 +24,14 @@ def service_handler(request):
 
 
 def service_name_handler(request, service_id):
+    if not request.user.is_authenticated:
+        return redirect('/user/login/')
     bookings = Booking.objects.all()
     if request.method == 'POST':
         bookings = Booking(
             master=Master.objects.get(name=request.POST['master_name']),
             service=Service.objects.filter(id=service_id).first(),
-            client=1,
+            client=request.user.pk,
             date=request.POST['date'],
             status=True
         )
@@ -93,12 +96,14 @@ def specialist_handler(request):
 
 
 def specialist_id_handler(request, specialist_id):
+    if not request.user.is_authenticated:
+        return redirect('/user/login/')
     bookings = Booking.objects.all()
     if request.method == 'POST':
         bookings = Booking(
             master=Master.objects.filter(id=specialist_id).first(),
             service=Service.objects.get(name=request.POST['service_name']),
-            client=1,
+            client=request.user.pk,
             date=request.POST['date'],
             status=True
         )

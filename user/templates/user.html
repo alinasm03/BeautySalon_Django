@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<style>
+    body {background-image: url("https://www.michiwaclinic.jp/wp-content/uploads/2021/07/file-2020-06-24-6-40-17@1x.png");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+  }
+  .button
+{
+    background-color: black;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border: 1px solid white;
+    font-size: 16px;
+    color:gold;
+    transition-duration: 0.4s;
+}
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style>
+<h1 style="color:Gold;"> BEAUTY SALON </h1>
+<br>
+    <h2 style="color:White;"> {{Log_in}} </h2>
+    <form>
+        {% csrf_token %}
+    </form>
+</body>
+</html>
+
