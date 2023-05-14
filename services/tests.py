@@ -1,10 +1,17 @@
 from django.test import TestCase
 import datetime
 from services.free_time import convert_period_to_set, test_calc_free_windows, calc_free_windows
-
+from django.contrib.auth.models import User
+from django.test import Client
 
 class Test(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(username='admin1', password='admin')
+        user.save()
+
     def test_convert_period_to_set(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         time_start = datetime.datetime(2022, 5, 1, 10, 0)
         time_end = datetime.datetime(2022, 5, 1, 11, 0)
         expected_result = {
@@ -18,6 +25,8 @@ class Test(TestCase):
         self.assertSetEqual(result, expected_result)
 
     def test_string_convert_period_to_set(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         time_start = 'text'
         time_end = datetime.datetime(2022, 5, 1, 11, 0)
         with self.assertRaises(TypeError):
@@ -31,6 +40,8 @@ class Test(TestCase):
         self.assertSetEqual(result, expected_result)
 
     def test_reverse_convert_period_to_set(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         time_start = datetime.datetime(2022, 5, 1, 10, 0)
         time_end = datetime.datetime(2022, 5, 1, 10, 0)
         expected_result = {datetime.datetime(2022, 5, 1, 10, 0)}
@@ -38,6 +49,8 @@ class Test(TestCase):
         self.assertSetEqual(result, expected_result)
 
     def test_convert_period_to_set_with_timedelta(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         booking = [
             {
             'date': datetime.datetime(2022, 5, 1, 10, 0),
@@ -53,6 +66,8 @@ class Test(TestCase):
         ####################################
 
     def test_convert_period_to_set_with_timedelta_v2(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         booking = [
             {
                 'date': datetime.datetime(2022, 5, 1, 10, 0),
@@ -73,6 +88,8 @@ class Test(TestCase):
         self.assertListEqual(result, expected_result)
         #############################
     def test_convert_period_to_set_with_timedelta_v3(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         booking = [
             {
                 'date': datetime.datetime(2022, 5, 1, 10, 0),
@@ -92,6 +109,8 @@ class Test(TestCase):
         self.assertListEqual(result, expected_result)
         #############################
     def test_convert_period_to_set_with_timedelta_v4(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         booking = [
             {
                 'date': datetime.datetime(2022, 5, 1, 10, 0),
@@ -112,6 +131,8 @@ class Test(TestCase):
 
         #############################
     def test_convert_period_to_set_with_timedelta_v5(self):
+        c = Client()
+        c.login(username='admin1', password='admin')
         booking = [
             {
                 'date': datetime.datetime(2022, 5, 1, 10, 0),
@@ -129,5 +150,3 @@ class Test(TestCase):
 
         expected_result = []
         self.assertListEqual(result, expected_result)
-
-

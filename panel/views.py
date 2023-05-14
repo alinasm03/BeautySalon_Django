@@ -5,13 +5,13 @@ from services.models import Service, Schedule, Master, Booking
 
 
 def root_handler(request):
-    if not request.user.has_perm('services.add_master'):
+    if not request.user.groups.filter(name='salon_admin_panel'):
         return HttpResponse('Немає доступу до перегляду сторінки')
     return HttpResponse("Hello panel")
 
 
 def bookings_handler(request):
-    if not request.user.has_perm('services.add_master'):
+    if not request.user.groups.filter(name='salon_admin_panel'):
         return HttpResponse('Немає доступу до перегляду сторінки')
     date_start = datetime.date.today()
     date_end = datetime.date.today() + datetime.timedelta(days=7)
@@ -40,7 +40,7 @@ def bookings_handler(request):
 
 
 def services_handler(request):
-    if not request.user.has_perm('services.add_service'):
+    if not request.user.groups.filter(name='salon_admin_panel'):
         return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
         service = Service(
@@ -54,7 +54,7 @@ def services_handler(request):
 
 
 def specialist_handler(request):
-    if not request.user.has_perm('services.add_master'):
+    if not request.user.groups.filter(name='salon_admin_panel'):
         return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
         specialists = Master(
@@ -76,7 +76,7 @@ def specialist_handler(request):
 
 
 def specialist_id_handler(request, specialist_id):
-    if not request.user.has_perm('services.add_master'):
+    if not request.user.groups.filter(name='salon_admin_panel'):
         return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
          work_schedule = Schedule(
@@ -94,7 +94,7 @@ def specialist_id_handler(request, specialist_id):
 
 
 def specialist_schedule(request, specialist_id):
-    if not request.user.has_perm('services.add_schedule'):
+    if not request.user.groups.filter(name='salon_admin_panel'):
         return HttpResponse('Немає доступу до перегляду сторінки')
     date_start = datetime.date.today()
     date_end = datetime.date.today() + datetime.timedelta(days=7)
