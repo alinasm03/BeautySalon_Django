@@ -1,18 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
+
+import panel.utils
 from services.models import Service, Schedule, Master, Booking
 
 
+@panel.utils.check_admin
 def root_handler(request):
-    if not request.user.groups.filter(name='salon_admin_panel'):
-        return HttpResponse('Немає доступу до перегляду сторінки')
     return HttpResponse("Hello panel")
 
 
+@panel.utils.check_admin
 def bookings_handler(request):
-    if not request.user.groups.filter(name='salon_admin_panel'):
-        return HttpResponse('Немає доступу до перегляду сторінки')
     date_start = datetime.date.today()
     date_end = datetime.date.today() + datetime.timedelta(days=7)
     calendars = Schedule.objects.filter(date__gte=date_start,
@@ -21,8 +21,6 @@ def bookings_handler(request):
     available_masters = Master.objects.filter(schedule__in=calendars, status=1).distinct()
     available_services = Service.objects.filter(master__in=available_masters).distinct()
     if request.method == 'POST':
-        #master = Master.objects.get(id=request.POST['master'])
-        #service = Service.objects.get(id=request.POST['service'])
         bookings = Booking(
             master=Master.objects.get(id=request.POST['master']),
             service=Service.objects.get(id=request.POST['service']),
@@ -39,9 +37,8 @@ def bookings_handler(request):
                                                    })
 
 
+@panel.utils.check_admin
 def services_handler(request):
-    if not request.user.groups.filter(name='salon_admin_panel'):
-        return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
         service = Service(
             name=request.POST['name'],
@@ -53,9 +50,8 @@ def services_handler(request):
     return render(request, 'panel_service.html', {'services': services})
 
 
+@panel.utils.check_admin
 def specialist_handler(request):
-    if not request.user.groups.filter(name='salon_admin_panel'):
-        return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
         specialists = Master(
             name=request.POST['name'],
@@ -75,9 +71,8 @@ def specialist_handler(request):
                   {'specialists': specialists, 'services': services})
 
 
+@panel.utils.check_admin
 def specialist_id_handler(request, specialist_id):
-    if not request.user.groups.filter(name='salon_admin_panel'):
-        return HttpResponse('Немає доступу до перегляду сторінки')
     if request.method == 'POST':
          work_schedule = Schedule(
             master=Master.objects.get(id=specialist_id),
@@ -93,9 +88,8 @@ def specialist_id_handler(request, specialist_id):
                                                      'master_actual': master_actual})
 
 
+@panel.utils.check_admin
 def specialist_schedule(request, specialist_id):
-    if not request.user.groups.filter(name='salon_admin_panel'):
-        return HttpResponse('Немає доступу до перегляду сторінки')
     date_start = datetime.date.today()
     date_end = datetime.date.today() + datetime.timedelta(days=7)
     available_masters = Master.objects.get(id=specialist_id)
