@@ -1,5 +1,6 @@
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from services.models import Service, Master, Schedule, Booking
@@ -20,7 +21,11 @@ def service_handler(request):
                                         ).all()
     available_masters = Master.objects.filter(schedule__in=calendars, status=1).distinct()
     services = Service.objects.filter(master__in=available_masters).distinct()
-    return render(request, 'service.html', {'services': list(services), 'week': week})
+    pages_services = Paginator(services, 2)
+    page_number = request.GET.get('page')
+    page_obj = pages_services.get_page(page_number)
+    return render(request, 'service.html', {'services': list(services), 'week': week,
+                                            'page_obj': page_obj})
 
 
 def service_name_handler(request, service_id):
@@ -92,7 +97,11 @@ def specialist_handler(request):
                                         date__lte=date_end
                                         ).all()
     available_masters = Master.objects.filter(schedule__in=calendars, status=1).distinct()
-    return render(request, 'specialist.html', {'specialists': list(available_masters), 'week': week})
+    pages_masters = Paginator(available_masters, 2)
+    page_number = request.GET.get('page')
+    page_obj = pages_masters.get_page(page_number)
+    return render(request, 'specialist.html', {'specialists': list(available_masters), 'week': week,
+                                               'page_obj': page_obj})
 
 
 def specialist_id_handler(request, specialist_id):

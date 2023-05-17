@@ -6,3 +6,4 @@
 # HT_19 BeautySalon_Django test admin_panel
 # HT_20 BeautySalon_Django log in/log out/permissions
 # HT_21 BeautySalon_Django fixtures
+# HT_22 BeautySalon_Django Paginator

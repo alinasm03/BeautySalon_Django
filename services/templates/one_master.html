@@ -41,7 +41,8 @@
         <i style="color:White;"> Duration: {{service_name.duration}} min </i><br>
         {% for date_time in one_dict.values %}
         {% for date in date_time %}
-        <br> <i style="color:White;">
+        <br>
+            <i style="color:White;">
         <input type="radio" id="service_name" name="service_name" value="{{ service_name.name }}" required>
   <label for="service_name"> {{ service_name.name }} </label>
         <input type="radio" id="date" name="date" value="{{ date|date:'Y-m-d H:i' }}" required>

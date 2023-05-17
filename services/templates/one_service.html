@@ -41,7 +41,8 @@
         <h2 style="color:Gold;"><u> {{master_name}} </u></h2>
         {% for date_time in one_dict.values %}
         {% for date in date_time %}
-        <br> <i style="color:White;">
+        <br>
+            <i style="color:White;">
         <input type="radio" id="master_name" name="master_name" value="{{ master_name }}" required>
   <label for="master_name"> {{ master_name }} </label>
         <input type="radio" id="date" name="date" value="{{ date|date:'Y-m-d H:i' }}" required>

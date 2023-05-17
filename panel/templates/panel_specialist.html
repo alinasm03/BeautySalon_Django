@@ -38,12 +38,30 @@
         TOP-Master
         {% endif %}
         {{master_actual.name}}</i></h2>
-{% for schedule in work_schedule %}
+{% for schedule in page_obj %}
     <p><li>
     {{schedule.date}} -- start: {{schedule.time_start}} - end: {{schedule.time_end}}
     </li>
     </p>
-{% endfor %} </ul>
+{% endfor %}
+
+<div class="pagination"><h3 style="color:Gold;">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo;{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+
+        <span class="current">
+            {{ page_obj.number }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.next_page_number }} &raquo;</a>
+        {% endif %}
+    </span>
+</h3></div>
+
+</ul>
     <h2 style="color:White;"> Admin. Add new records: </h2>
     <form method="post">
         {% csrf_token %}
